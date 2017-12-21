@@ -7,7 +7,7 @@
     "main": "dist/memory.js",
     "umd:main": "dist/memory.umd.js",
     "scripts": {
-        "build": "npm-run-all --silent -p build:main build:integrations build:combined -s size docs",
+        "build": "npm-run-all --silent -p build:main -s size docs",
         "build:main": "microbundle",
         "size": "strip-json-comments --no-whitespace dist/memory.js | gzip-size && bundlesize",
         "docs": "documentation readme memory.js -q --section API && npm run -s fixreadme",
