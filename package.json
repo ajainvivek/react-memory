@@ -1,83 +1,86 @@
 {
-    "name": "react-memory",
-    "version": "0.0,1",
-    "description": "Simple centralized store for react",
-    "source": "src/index.js",
-    "module": "dist/memory.es.js",
-    "main": "dist/memory.js",
-    "umd:main": "dist/memory.umd.js",
-    "scripts": {
-        "build": "npm-run-all --silent -p build:main -s size docs",
-        "build:main": "microbundle",
-        "size": "strip-json-comments --no-whitespace dist/memory.js | gzip-size && bundlesize",
-        "docs": "documentation readme memory.js -q --section API && npm run -s fixreadme",
-        "fixreadme": "node -e 'var fs=require(\"fs\");fs.writeFileSync(\"README.md\", fs.readFileSync(\"README.md\", \"utf8\").replace(/^-   /gm, \"- \"))'",
-        "test": "eslint src && npm run build && jest",
-        "prepare": "npm t",
-        "release": "npm t && git commit -am $npm_package_version && git tag $npm_package_version && git push && git push --tags && npm publish",
-        "precommit": "lint-staged"
-    },
-    "bundlesize": [{
-        "path": "dist/memory.js",
-        "maxSize": "400b"
-    }],
-    "babel": {
-        "presets": [
-            [
-                "env",
-                {
-                    "targets": {
-                        "node": true
-                    }
-                }
-            ]
-        ],
-        "plugins": [
-            [
-                "transform-react-jsx",
-                {
-                    "pragma": "h"
-                }
-            ]
-        ]
-    },
-    "files": [
-        "src",
-        "dist"
-    ],
-    "keywords": [
-        "react",
-        "store",
-        "memory",
-        "redux"
-    ],
-    "repository": "ajainvivek/react-memory",
-    "author": "Ajain Vivek <ajainvivek07@gmail.com>",
-    "license": "MIT",
-    "devDependencies": {
-        "babel-jest": "^21.2.0",
-        "babel-plugin-transform-react-jsx": "^6.24.1",
-        "babel-preset-env": "^1.6.1",
-        "bundlesize": "^0.15.3",
-        "documentation": "^4.0.0",
-        "eslint": "^4.12.1",
-        "eslint-config-developit": "^1.1.1",
-        "gzip-size-cli": "^2.1.0",
-        "jest": "^21.2.1",
-        "lint-staged": "^6.0.0",
-        "microbundle": "^0.2.4",
-        "npm-run-all": "^4.1.2",
-        "prettier": "^1.9.2",
-        "react": "^16.2.0",
-        "strip-json-comments-cli": "^1.0.1"
-    },
-    "lint-staged": {
-        "*.{js,json,md}": [
-            "prettier --write",
-            "git add"
-        ]
-    },
-    "peerDependencies": {
-        "react": "*"
+  "name": "react-memory",
+  "version": "0.0.1",
+  "description": "Simple centralized store for react",
+  "source": "src/index.js",
+  "module": "dist/memory.es.js",
+  "main": "dist/memory.js",
+  "umd:main": "dist/memory.umd.js",
+  "scripts": {
+    "build": "npm-run-all --silent -p build:main -s size docs",
+    "build:main": "microbundle",
+    "size": "strip-json-comments --no-whitespace dist/memory.js | gzip-size && bundlesize",
+    "docs": "documentation readme memory.js -q --section API && npm run -s fixreadme",
+    "fixreadme": "node -e 'var fs=require(\"fs\");fs.writeFileSync(\"README.md\", fs.readFileSync(\"README.md\", \"utf8\").replace(/^-   /gm, \"- \"))'",
+    "test": "eslint src && npm run build && jest",
+    "prepare": "npm t",
+    "release": "npm t && git commit -am $npm_package_version && git tag $npm_package_version && git push && git push --tags && npm publish",
+    "precommit": "lint-staged"
+  },
+  "bundlesize": [
+    {
+      "path": "dist/memory.js",
+      "maxSize": "400b"
     }
+  ],
+  "babel": {
+    "presets": [
+      [
+        "env",
+        {
+          "targets": {
+            "node": true
+          }
+        }
+      ]
+    ],
+    "plugins": [
+      [
+        "transform-react-jsx",
+        {
+          "pragma": "h"
+        }
+      ]
+    ]
+  },
+  "files": [
+    "src",
+    "dist"
+  ],
+  "keywords": [
+    "react",
+    "store",
+    "memory",
+    "redux"
+  ],
+  "repository": "ajainvivek/react-memory",
+  "author": "Ajain Vivek <ajainvivek07@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-jest": "^21.2.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
+    "babel-preset-env": "^1.6.1",
+    "bundlesize": "^0.15.3",
+    "documentation": "^4.0.0",
+    "eslint": "^4.12.1",
+    "eslint-config-developit": "^1.1.1",
+    "gzip-size-cli": "^2.1.0",
+    "jest": "^21.2.1",
+    "lint-staged": "^6.0.0",
+    "microbundle": "^0.2.4",
+    "npm-run-all": "^4.1.2",
+    "prettier": "^1.9.2",
+    "react": "^16.2.0",
+    "strip-json-comments-cli": "^1.0.1"
+  },
+  "lint-staged": {
+    "*.{js,json,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "peerDependencies": {
+    "react": "*"
+  }
 }

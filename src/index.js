@@ -1,72 +1,50 @@
-class Memory {
-    constructor(memory) {
-        const handler = this.handler();
-        this.keys = {
-            sensory: Object.keys(memory.sensory),
-            cache: Object.keys(memory.cache),
-            browser: Object.keys(memory.browser)
-        };
-        this.proxy = new Proxy(memory, handler);
-    }
+import Memory from './memory';
+import Provider from './provider';
+import HOC from './hoc';
+import { select } from './helper';
 
-    action() {
+const connect = function(mapStateToProps, actions) {
+    mapStateToProps = Array.isArray(mapStateToProps) ? mapStateToProps : [];
+    mapStateToProps = select(mapStateToProps);
 
-    }
-
-    setState() {
-
-    }
-
-    getState() {
-
-    }
-
-    observe() {
-
-    }
-
-    handler() {
-        return {
-            set(target, key, value) {
-                return true;
-            },
-            get(target, key) {
-                // first get sensory -> cache -> browser -> null
-                return target[key];
-            }
-        };
-    }
+    return WrappedComponent => {
+        return HOC(WrappedComponent, mapStateToProps, actions);
+    };
 };
-
-export default function createMemory({
-    sensory,
-    cache,
-    browser
-}) {
+/**
+ * 
+ * @param {*} param0 
+ * @param {*} config 
+ * 
+ * 
+ * 
+createMemory({
+    sensory: {
+        _a: 'hello',
+    },
+    cache: {
+        b: 'world',
+    },
+    browser: {
+        $c: '!',
+    },
+});
+ */
+const createMemory = function({ sensory, cache, browser }, config = {}) {
     sensory = sensory || {};
     cache = cache || {};
     browser = browser || {};
 
-    const memory = new Memory({
-        sensory,
-        cache,
-        browser
-    });
+    const memory = new Memory(
+        {
+            sensory,
+            cache,
+            browser,
+        },
+        config.propTypes || {}
+    );
 
-    return {
-        ...memory
-    };
+    return memory;
 };
 
-// Example
-createMemory({
-    sensory: {
-        _a: 'hello'
-    },
-    cache: {
-        b: 'world'
-    },
-    browser: {
-        $c: '!'
-    }
-});
+export { Provider, connect, createMemory };
