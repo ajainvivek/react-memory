@@ -1,40 +1,43 @@
-import React, { Component } from 'react';
+import React, { Component, createElement } from 'react';
 
 const HOC = (WrappedComponent, mapStateToProps, actions) => {
-    return class WrapperComponent extends Component {
+    class WrapperComponent extends Component {
         constructor(props) {
             super(props);
             this.memory = this.context.memory;
-            this.state = mapStateToProps(store ? store.getState() : {});
+            this.state = mapStateToProps(this.memory ? this.memory.getState() : {});
             this.actions = actions ? mapActions(actions, this.memory) : { memory };
         }
         update() {
-            let mapped = mapStateToProps(this.store ? this.store.getState() : {});
+            let mapped = mapStateToProps(this.memory ? this.memory.getState() : {});
             for (let i in mapped) {
                 if (mapped[i] !== this.state[i]) {
-                    state = mapped;
+                    this.state = mapped;
                     return this.forceUpdate();
                 }
             }
 
             for (let i in state) {
                 if (mapped[i] !== this.state[i]) {
-                    state = mapped;
+                    this.state = mapped;
                     return this.forceUpdate();
                 }
             }
         }
         componentDidMount() {
             this.update();
-            store.subscribe(this.update);
+            this.memory.subscribe(this.update);
         }
         componentWillUnmount() {
-            store.unsubscribe(this.update);
+            this.memory.unsubscribe(this.update);
         }
         render() {
-            return <WrappedComponent {...this.props} />;
+            const props = Object.assign(Object.assign(Object.assign({}, boundActions), this.props), this.state);
+            const WrappedComponent = this.props.child;
+            return createElement(WrappedComponent, props);
         }
-    };
+    }
+    return createElement(WrapperComponent, { child: WrappedComponent });
 };
 
 export default HOC;
