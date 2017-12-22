@@ -1,16 +1,7 @@
+import React from 'react';
 import Memory from './memory';
 import Provider from './provider';
-import HOC from './hoc';
-import { select } from './helper';
-
-const connect = function(mapStateToProps, actions) {
-    mapStateToProps = Array.isArray(mapStateToProps) ? mapStateToProps : [];
-    mapStateToProps = select(mapStateToProps);
-
-    return WrappedComponent => {
-        return HOC(WrappedComponent, mapStateToProps, actions);
-    };
-};
+import connect from './connect';
 /**
  * 
  * @param {*} param0 
