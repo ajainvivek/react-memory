@@ -1,25 +1,24 @@
-import React, { Component, PropTypes, Children } from 'react';
+import React, { Component, Children } from 'react';
+import PropTypes from 'prop-types';
 
 class Provider extends Component {
     getChildContext() {
-        return Object.assign(
-            {
-                memory: this.props.memory,
-            },
-            this.props
-        );
+        return {
+            memory: this.props.memory,
+        };
     }
     render() {
         return Children.only(this.props.children);
     }
 }
 
-Provider.propTypes = {
-    memory: PropTypes.object.isRequired,
+Provider.childContextTypes = {
+    memory: PropTypes.object.isRequired
 };
 
-Provider.childContextTypes = {
+Provider.propTypes = {
     memory: PropTypes.object.isRequired,
+    children: PropTypes.element.isRequired
 };
 
 export default Provider;

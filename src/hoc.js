@@ -1,4 +1,5 @@
 import React, { Component, createElement } from 'react';
+import PropTypes from 'prop-types';
 
 const HOC = (WrappedComponent, mapStateToProps, actions) => {
     class WrapperComponent extends Component {
@@ -32,12 +33,15 @@ const HOC = (WrappedComponent, mapStateToProps, actions) => {
             this.memory.unsubscribe(this.update);
         }
         render() {
-            const props = Object.assign(Object.assign(Object.assign({}, boundActions), this.props), this.state);
+            const props = Object.assign(Object.assign(Object.assign({}, this.actions), this.props), this.state);
             const WrappedComponent = this.props.child;
             return createElement(WrappedComponent, props);
         }
     }
-    return createElement(WrapperComponent, { child: WrappedComponent });
+    WrapperComponent.childContextTypes = {
+        memory: PropTypes.object.isRequired
+    };
+    return WrapperComponent;
 };
 
 export default HOC;

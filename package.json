@@ -11,8 +11,7 @@
         "build:main": "microbundle",
         "size": "strip-json-comments --no-whitespace dist/memory.js | gzip-size && bundlesize",
         "docs": "documentation readme memory.js -q --section API && npm run -s fixreadme",
-        "fixreadme":
-            "node -e 'var fs=require(\"fs\");fs.writeFileSync(\"README.md\", fs.readFileSync(\"README.md\", \"utf8\").replace(/^-   /gm, \"- \"))'",
+        "fixreadme": "node -e 'var fs=require(\"fs\");fs.writeFileSync(\"README.md\", fs.readFileSync(\"README.md\", \"utf8\").replace(/^-   /gm, \"- \"))'",
         "test": "npm run build && jest",
         "prepare": "npm t",
         "release": "npm t && git commit -am $npm_package_version && git tag $npm_package_version && git push && git push --tags && npm publish",
@@ -44,8 +43,16 @@
             ]
         ]
     },
-    "files": ["src", "dist"],
-    "keywords": ["react", "store", "memory", "redux"],
+    "files": [
+        "src",
+        "dist"
+    ],
+    "keywords": [
+        "react",
+        "store",
+        "memory",
+        "redux"
+    ],
     "repository": "ajainvivek/react-memory",
     "author": "Ajain Vivek <ajainvivek07@gmail.com>",
     "license": "MIT",
@@ -68,9 +75,15 @@
         "strip-json-comments-cli": "^1.0.1"
     },
     "lint-staged": {
-        "*.{js,json,md}": ["prettier --write", "git add"]
+        "*.{js,json,md}": [
+            "prettier --write",
+            "git add"
+        ]
     },
     "peerDependencies": {
         "react": "*"
+    },
+    "dependencies": {
+        "prop-types": "^15.6.0"
     }
 }

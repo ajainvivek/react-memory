@@ -1,4 +1,3 @@
-import React from 'react';
 import Memory from './memory';
 import Provider from './provider';
 import connect from './connect';
@@ -21,13 +20,16 @@ createMemory({
     },
 });
  */
-const createMemory = function({ sensory, cache, browser }, config = {}) {
+const createMemory = function({
+    sensory,
+    cache,
+    browser
+}, config = {}) {
     sensory = sensory || {};
     cache = cache || {};
     browser = browser || {};
 
-    const memory = new Memory(
-        {
+    const memory = new Memory({
             sensory,
             cache,
             browser,
@@ -38,4 +40,8 @@ const createMemory = function({ sensory, cache, browser }, config = {}) {
     return memory;
 };
 
-export { Provider, connect, createMemory };
+export {
+    Provider,
+    connect,
+    createMemory
+};
