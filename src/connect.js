@@ -1,7 +1,5 @@
 import HOC from './hoc';
-import {
-    select
-} from './helper';
+import { select } from './helper';
 
 const connect = function(mapStateToProps, actions) {
     mapStateToProps = Array.isArray(mapStateToProps) ? mapStateToProps : [];

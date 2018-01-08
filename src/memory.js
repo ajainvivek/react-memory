@@ -7,7 +7,7 @@ class Memory {
             browser: Object.keys(memory.browser),
         };
         this.listeners = [];
-        this.proxy = new Proxy(memory, handler);
+        this.state = new Proxy(memory, handler);
     }
 
     unsubscribe() {
@@ -50,11 +50,11 @@ class Memory {
     }
 
     setState(update) {
-        state = Object.assign(this.proxy, update);
+        this.state = Object.assign(this.state, update);
     }
 
     getState() {
-        return this.proxy;
+        return this.state;
     }
 
     handler() {

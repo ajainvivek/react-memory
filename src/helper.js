@@ -12,7 +12,7 @@ const mapActions = function(actions, memory) {
     if (typeof actions === 'function') actions = actions(memory);
     let mapped = {};
     for (let i in actions) {
-        mapped[i] = store.action(actions[i]);
+        mapped[i] = memory.action(actions[i]);
     }
     return mapped;
 };

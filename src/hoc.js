@@ -1,7 +1,5 @@
-import React, {
-    Component,
-    createElement
-} from 'react';
+import React, { Component, createElement } from 'react';
+import { mapActions } from './helper';
 import PropTypes from 'prop-types';
 
 const HOC = (WrappedComponent, mapStateToProps, actions) => {
@@ -41,7 +39,7 @@ const HOC = (WrappedComponent, mapStateToProps, actions) => {
         }
     }
     WrapperComponent.contextTypes = {
-        memory: PropTypes.object.isRequired
+        memory: PropTypes.object.isRequired,
     };
     return WrapperComponent;
 };
