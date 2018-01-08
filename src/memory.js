@@ -1,5 +1,5 @@
 class Memory {
-    constructor(memory, propTypes) {
+    constructor(memory) {
         const handler = this.handler();
         this.keys = {
             sensory: Object.keys(memory.sensory),
@@ -64,7 +64,15 @@ class Memory {
             },
             get(target, key) {
                 // first get sensory -> cache -> browser -> null
-                return target[key];
+                let value = null;
+                let storage = ['sensory', 'cache', 'browser'];
+                for (let i = 0; i < storage.length; i++) {
+                    if (value) { //if value is found then break out of the loop
+                        break;
+                    }
+                    value = target[storage[i]][key];
+                }
+                return value;
             },
         };
     }

@@ -4,7 +4,7 @@ const select = function(props) {
         for (let i = 0; i < props.length; i++) {
             selected[props[i]] = memory[props[i]];
         }
-        return select;
+        return selected;
     };
 };
 

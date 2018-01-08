@@ -1,13 +1,16 @@
-import React, { Component, createElement } from 'react';
+import React, {
+    Component,
+    createElement
+} from 'react';
 import PropTypes from 'prop-types';
 
 const HOC = (WrappedComponent, mapStateToProps, actions) => {
     class WrapperComponent extends Component {
-        constructor(props) {
+        constructor(props, context) {
             super(props);
-            this.memory = this.context.memory;
+            this.memory = context.memory;
             this.state = mapStateToProps(this.memory ? this.memory.getState() : {});
-            this.actions = actions ? mapActions(actions, this.memory) : { memory };
+            this.actions = actions ? mapActions(actions, this.memory) : this.memory;
         }
         update() {
             let mapped = mapStateToProps(this.memory ? this.memory.getState() : {});
@@ -18,7 +21,7 @@ const HOC = (WrappedComponent, mapStateToProps, actions) => {
                 }
             }
 
-            for (let i in state) {
+            for (let i in this.state) {
                 if (mapped[i] !== this.state[i]) {
                     this.state = mapped;
                     return this.forceUpdate();
@@ -34,11 +37,10 @@ const HOC = (WrappedComponent, mapStateToProps, actions) => {
         }
         render() {
             const props = Object.assign(Object.assign(Object.assign({}, this.actions), this.props), this.state);
-            const WrappedComponent = this.props.child;
             return createElement(WrappedComponent, props);
         }
     }
-    WrapperComponent.childContextTypes = {
+    WrapperComponent.contextTypes = {
         memory: PropTypes.object.isRequired
     };
     return WrapperComponent;
