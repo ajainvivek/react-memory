@@ -13,12 +13,12 @@ class Provider extends Component {
 }
 
 Provider.childContextTypes = {
-    memory: PropTypes.object.isRequired
+    memory: PropTypes.object.isRequired,
 };
 
 Provider.propTypes = {
     memory: PropTypes.object.isRequired,
-    children: PropTypes.element.isRequired
+    children: PropTypes.element.isRequired,
 };
 
 export default Provider;

@@ -64,13 +64,12 @@ class Memory {
             },
             get(target, key) {
                 // first get sensory -> cache -> browser -> null
-                let value = null;
+                let value;
                 let storage = ['sensory', 'cache', 'browser'];
                 for (let i = 0; i < storage.length; i++) {
-                    if (value) { //if value is found then break out of the loop
-                        break;
+                    if (typeof value === 'undefined') {
+                        value = target[storage[i]][key];
                     }
-                    value = target[storage[i]][key];
                 }
                 return value;
             },
