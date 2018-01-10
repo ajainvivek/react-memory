@@ -46,8 +46,8 @@ const memory = createMemory({
   }
 });
 
-// If actions is a function, it gets passed the store:
-let actions = store => ({
+// If actions is a function, it gets passed the memory:
+let actions = memory => ({
   // Actions can just return a state update:
   incrementSensory(state) {
     return { _count: state._count + 1 }
