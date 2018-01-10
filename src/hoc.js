@@ -10,6 +10,11 @@ const HOC = (WrappedComponent, mapStateToProps, actions) => {
             this.state = mapStateToProps(this.memory ? this.memory.getState() : {});
             this.actions = actions ? mapActions(actions, this.memory) : this.memory;
         }
+        /**
+         * @private
+         * @desc Compares the current component state with memory's current state,
+         *  if the values arent equal then force updates the child components props with the modified state
+         */
         update() {
             let mapped = mapStateToProps(this.memory ? this.memory.getState() : {});
 

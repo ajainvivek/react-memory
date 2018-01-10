@@ -1,3 +1,8 @@
+/**
+ * @private
+ * @desc
+ * Prefills the selected props with the values stored in current memory state
+ */
 const select = function(props) {
     return memory => {
         const selected = {};
@@ -8,9 +13,16 @@ const select = function(props) {
     };
 };
 
+/**
+ * @private
+ * @desc
+ * Binds the factory of actions to the memory and wrap them.
+ */
 const mapActions = function(actions, memory) {
-    if (typeof actions === 'function') actions = actions(memory);
     let mapped = {};
+    if (typeof actions === 'function') {
+        actions = actions(memory);
+    }
     for (let i in actions) {
         mapped[i] = memory.action(actions[i]);
     }

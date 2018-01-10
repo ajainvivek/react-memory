@@ -11,6 +11,12 @@ class Memory {
         this.state = new Proxy(memory, handler);
     }
 
+    /**
+     * @public
+     * @desc Remove the subscribed listener function
+     *
+     * @param  {Function} listener function to be detached from subscribed listeners
+     */
     unsubscribe(listener) {
         let out = [];
         let listeners = this.listeners;
@@ -24,6 +30,12 @@ class Memory {
         listeners = out;
     }
 
+    /**
+     * @public
+     * @desc Register a listener function so it can be called when state is changed
+     *
+     * @param  {Function} listener function to be attached to list of subscribed listeners
+     */
     subscribe(listener) {
         let listeners = this.listeners;
         listeners.push(listener);
@@ -32,14 +44,31 @@ class Memory {
         };
     }
 
+    /**
+     * @public
+     * @desc Reset the sensory memory
+     */
     resetSensory() {
         this.setState(this.defaultSensory);
     }
 
+    /**
+     * @public
+     * @desc Reset the long term memory
+     */
     resetLong() {
         this.setState(this.defaultLong);
     }
 
+    /**
+     *  @private
+     *  @desc Create a bound copy of the given action function.
+     *  The bound returned function invokes action() and persists the result back to the memory.
+     *  If the return value of `action` is a Promise, the resolved value will be used as state.
+     *
+     *  @param {Function} action	An action of the form `action(state, ...args) -> stateUpdate`
+     *  @returns {Function} boundAction()
+     */
     action(action) {
         let setState = this.setState.bind(this);
         let values = this.state;
@@ -59,6 +88,12 @@ class Memory {
         };
     }
 
+    /**
+     *  @public
+     *  @desc Update the partial state from the current proxy/state, and call the registered listeners
+     *
+     *  @param {Object} update	Partial values to be updated to the memory
+     */
     setState(update) {
         let state = this.state;
         let currentListeners = this.listeners;
@@ -67,14 +102,26 @@ class Memory {
             this.state[keys[i]] = update[keys[i]];
         }
         for (let i = 0; i < currentListeners.length; i++) {
-            currentListeners[i]();
+            currentListeners[i](this.state);
         }
     }
 
+    /**
+     * @public
+     * @desc Get the current state of the memory
+     *
+     * @returns {Object} state - current state of the memory
+     */
     getState() {
         return this.state;
     }
 
+    /**
+     * @public
+     * @desc To retrieve specific type from the memory
+     *
+     * @param {String} type	memory type i.e sensory, short, long
+     */
     snapshot(type) {
         let state = this.state || {};
 
@@ -97,6 +144,12 @@ class Memory {
         return state;
     }
 
+    /**
+     * @private
+     * @desc Proxy getter/setter handlers
+     *
+     * @returns {Object} proxy handlers
+     */
     handler() {
         return {
             set(target, key, value, receivers) {
