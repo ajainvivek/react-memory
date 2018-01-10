@@ -1,4 +1,4 @@
-const storage = ['sensory', 'cache', 'browser'];
+const storage = ['sensory', 'short', 'long'];
 
 class Memory {
     constructor(memory) {
@@ -75,7 +75,7 @@ class Memory {
                 return true;
             },
             get(target, key) {
-                // first get sensory -> cache -> browser -> null
+                // first get sensory -> short -> long -> null
                 let value;
                 for (let i = 0; i < storage.length; i++) {
                     if (typeof value === 'undefined') {

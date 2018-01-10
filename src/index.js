@@ -12,27 +12,24 @@ createMemory({
     sensory: {
         _a: 'hello',
     },
-    cache: {
+    short: {
         b: 'world',
     },
-    browser: {
+    long: {
         $c: '!',
     },
 });
  */
-const createMemory = function({
-    sensory,
-    cache,
-    browser
-}, config = {}) {
+const createMemory = function({ sensory, short, long }, config = {}) {
     sensory = sensory || {};
-    cache = cache || {};
-    browser = browser || {};
+    short = short || {};
+    long = long || {};
 
-    const memory = new Memory({
+    const memory = new Memory(
+        {
             sensory,
-            cache,
-            browser,
+            short,
+            long,
         },
         config.propTypes || {}
     );
@@ -40,8 +37,4 @@ const createMemory = function({
     return memory;
 };
 
-export {
-    Provider,
-    connect,
-    createMemory
-};
+export { Provider, connect, createMemory };
