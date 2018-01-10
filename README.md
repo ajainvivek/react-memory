@@ -1,6 +1,6 @@
 # React Memory
 
-A memory based storage model for react.
+A human memory based storage model for react.
 
 Mimicking the human memory model onto to the centralized store to process and retrieve the data.
 

@@ -1,6 +1,6 @@
 {
     "name": "react-memory",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "Simple centralized store for react",
     "source": "src/index.js",
     "module": "dist/memory.es.js",
