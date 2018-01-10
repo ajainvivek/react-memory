@@ -1,10 +1,13 @@
+const __long__ = '__memory__';
 const storage = ['sensory', 'short', 'long'];
 
 class Memory {
     constructor(memory) {
         const handler = this.handler();
         this.listeners = [];
+        this.defaultLong = Object.assign({}, memory.long || {});
         this.defaultSensory = Object.assign({}, memory.sensory || {});
+        memory.long = this.snapshot('long') || memory.long;
         this.state = new Proxy(memory, handler);
     }
 
@@ -33,6 +36,10 @@ class Memory {
         this.setState(this.defaultSensory);
     }
 
+    resetLong() {
+        this.setState(this.defaultLong);
+    }
+
     action(action) {
         let setState = this.setState.bind(this);
         let values = this.state;
@@ -54,14 +61,40 @@ class Memory {
 
     setState(update) {
         let state = this.state;
+        let currentListeners = this.listeners;
         const keys = Object.keys(update);
         for (let i = 0; i < keys.length; i++) {
             this.state[keys[i]] = update[keys[i]];
+        }
+        for (let i = 0; i < currentListeners.length; i++) {
+            currentListeners[i]();
         }
     }
 
     getState() {
         return this.state;
+    }
+
+    snapshot(type) {
+        let state = this.state || {};
+
+        switch (type) {
+            case 'sensory':
+                state = state.__sensory || {};
+                break;
+            case 'short':
+                state = state.__short || {};
+                break;
+            case 'long':
+                const local = localStorage.getItem(__long__);
+                const long = local ? JSON.parse(local) : undefined;
+                state = state.__long || long;
+                break;
+            default:
+                break;
+        }
+
+        return state;
     }
 
     handler() {
@@ -70,6 +103,11 @@ class Memory {
                 for (let i = 0; i < storage.length; i++) {
                     if (target[storage[i]].hasOwnProperty(key)) {
                         target[storage[i]][key] = value;
+
+                        // if store is long storage then store in localStorage
+                        if (storage[i] === 'long') {
+                            localStorage.setItem(__long__, JSON.stringify(target.long));
+                        }
                     }
                 }
                 return true;
@@ -82,6 +120,15 @@ class Memory {
                         value = target[storage[i]][key];
                     }
                 }
+
+                // this only to retrieve specific snapshot i.e sensory, short, long
+                if (typeof value === 'undefined') {
+                    if (key.substr(0, 2) === '__') {
+                        const type = key.substr(2);
+                        value = target[type];
+                    }
+                }
+
                 return value;
             },
         };

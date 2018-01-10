@@ -12,6 +12,7 @@ const HOC = (WrappedComponent, mapStateToProps, actions) => {
         }
         update() {
             let mapped = mapStateToProps(this.memory ? this.memory.getState() : {});
+
             for (let i in mapped) {
                 if (mapped[i] !== this.state[i]) {
                     this.state = mapped;
@@ -28,11 +29,11 @@ const HOC = (WrappedComponent, mapStateToProps, actions) => {
         }
         componentDidMount() {
             this.update();
-            this.memory.subscribe(this.update);
+            this.memory.subscribe(this.update.bind(this));
         }
         componentWillUnmount() {
             this.memory.resetSensory(); // the values reset to initial state
-            this.memory.unsubscribe(this.update);
+            this.memory.unsubscribe(this.update.bind(this));
         }
         render() {
             const props = Object.assign(Object.assign(Object.assign({}, this.actions), this.props), this.state);
