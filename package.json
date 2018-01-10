@@ -1,6 +1,6 @@
 {
     "name": "react-memory",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "description": "Memory based storage for react.",
     "source": "src/index.js",
     "module": "dist/memory.es.js",
