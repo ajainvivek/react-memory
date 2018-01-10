@@ -1,14 +1,30 @@
-# React Memory
+<p align="center">
+<a href="#" target="_blank">
+<img alt="React Memory" title="React Memory" src="https://i.imgur.com/2aF8IOn.png" width="248">
+</a>
+</p>
+<p align="center"> A <b>Human mmeory</b> based centralized storage for react.</p>
 
-A human memory based storage model for react.
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+[![HitCount](http://hits.dwyl.io/ajainvivek/react-memory.svg)](http://hits.dwyl.io/ajainvivek/react-memory)
 
-Mimicking the human memory model onto to the centralized store to process and retrieve the data.
+## Installation
 
-![Human Memory Working](http://brainmadesimple.com/memory/memory.JPG)
+React Memory is available as an [npm package](https://www.npmjs.com/package/react-memory).
+
+```sh
+npm install react-memory --save
+```
 
 ### Demo
 
 * [Simple](https://codesandbox.io/s/40pn25njx7)
+
+## What
+
+Mimicking the human memory model onto to the centralized store to process and retrieve the data.
+
+![Human Memory Working](http://brainmadesimple.com/memory/memory.JPG)
 
 ### API
 
