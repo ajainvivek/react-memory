@@ -16,9 +16,74 @@ React Memory is available as an [npm package](https://www.npmjs.com/package/reac
 npm install react-memory --save
 ```
 
+The [UMD](https://github.com/umdjs/umd) build is also available on [unpkg](https://unpkg.com):
+
+```html
+<!-- just memory(): -->
+<script src="//unpkg.com/react-memory/dist/react-memory.umd.js"></script>
+```
+
+You can find the library on `window.memory`.
+
 ### Demo
 
 * [Simple](https://codesandbox.io/s/40pn25njx7)
+
+### Usage
+
+```js
+import { createMemory, Provider, connect } from 'react-memory'
+
+const memory = createMemory({
+  sensory: {
+    _count: 0
+  },
+  short: {
+    count: 0
+  },
+  long: {
+    $count: 0
+  }
+});
+
+// If actions is a function, it gets passed the store:
+let actions = store => ({
+  // Actions can just return a state update:
+  incrementSensory(state) {
+    return { _count: state._count + 1 }
+  },
+
+  incrementShort({count}) {
+    return { count: count + 1 }
+  },
+
+  // Async actions can be pure async/promise functions:
+  async incrementLong(state) {
+    return new Promise((resolve) => {
+      resolve($count: state.$count + 1);
+    });
+  }
+})
+
+const App = connect(['_count', 'count', '$count'], actions)(
+  ({ count, incrementSensory, incrementShort, incrementLong }) => (
+    <div>
+      <p>Sensory: {_count}</p>
+      <p>Short: {count}</p>
+      <p>Long: {$count}</p>
+      <button onClick={incrementSensory}>Increment Sensory</button>
+      <button onClick={incrementShort}>Increment Short</button>
+      <button onClick={incrementLong}>Increment Long</button>
+    </div>
+  )
+)
+
+export default () => (
+  <Provider memory={memory}>
+    <App />
+  </Provider>
+)
+```
 
 ## What
 
