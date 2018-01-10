@@ -27,7 +27,8 @@ You can find the library on `window.memory`.
 
 ### Demo
 
-* [Simple](https://codesandbox.io/s/40pn25njx7)
+* [Basic](https://codesandbox.io/s/40pn25njx7)
+* [Simple demo using router](https://codesandbox.io/s/0m06x87v00)
 
 ### Usage
 
