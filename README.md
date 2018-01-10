@@ -3,7 +3,7 @@
 <img alt="React Memory" title="React Memory" src="https://i.imgur.com/2aF8IOn.png" width="248">
 </a>
 </p>
-<p align="center"> A <b>Human mmeory</b> based centralized storage for react.</p>
+<p align="center"> A <b>human memory</b> based centralized storage for react.</p>
 
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![HitCount](http://hits.dwyl.io/ajainvivek/react-memory.svg)](http://hits.dwyl.io/ajainvivek/react-memory)
