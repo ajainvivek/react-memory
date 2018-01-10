@@ -66,7 +66,7 @@ let actions = memory => ({
 })
 
 const App = connect(['_count', 'count', '$count'], actions)(
-  ({ count, incrementSensory, incrementShort, incrementLong }) => (
+  ({ _count, count, $count, incrementSensory, incrementShort, incrementLong }) => (
     <div>
       <p>Sensory: {_count}</p>
       <p>Short: {count}</p>
