@@ -88,7 +88,7 @@ export default () => (
 
 ## How it works?
 
-Mimicking the human memory model onto to the centralized store to process and retrieve the data. The data stored in central memory is categoried and initialized with all the required props for the for each category. Then the data is retrieved and stored based on the flow diagram.
+Mimicking the human memory model onto to the centralized store to process and retrieve the data. The data stored in central memory is categoried and initialized with all the required props for each category. Then the data is stored and retrieved based on the flow diagram.
 
 ![React Memory Flow](https://i.imgur.com/SpGwALm.png)
 
