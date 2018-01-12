@@ -27,8 +27,8 @@ You can find the library on `window.memory`.
 
 ### Demo
 
-* [Basic](https://codesandbox.io/s/40pn25njx7)
-* [Simple demo using router](https://codesandbox.io/s/0m06x87v00)
+* [Codesandbox: Simple Example](https://codesandbox.io/s/40pn25njx7)
+* [Codesandbox: Example showcasing memory working using router](https://codesandbox.io/s/0m06x87v00)
 
 ### Usage
 
@@ -208,3 +208,12 @@ const Foo = connect([foo, bar], actions)(({ foo, bar, someAction }) => <div />);
 ```
 
 Returns **Component** ConnectedComponent
+
+### Reporting Issues
+
+Found a problem? Want a new feature? First of all, see if your issue or idea has [already been reported](../../issues).
+If not, just open a [new clear and descriptive issue](../../issues/new).
+
+### License
+
+[MIT License](LICENSE.md) © [Ajain Vivek](https://chaicode.com/)
