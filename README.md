@@ -86,11 +86,23 @@ export default () => (
 )
 ```
 
-## What
+## How it works?
 
-Mimicking the human memory model onto to the centralized store to process and retrieve the data.
+Mimicking the human memory model onto to the centralized store to process and retrieve the data. The data stored in central memory is categoried and initialized with all the required props for the for each category. Then the data is retrieved and stored based on the flow diagram.
 
-![Human Memory Working](http://brainmadesimple.com/memory/memory.JPG)
+![React Memory Flow](https://i.imgur.com/SpGwALm.png)
+
+#### Sensory Memory
+
+Sensory memory is the shortest-term element of memory. It has the ability to retain data only for the duration of component lifecycle. On component unmount the value resets to its initial state.
+
+#### Short Term (Working) Memory
+
+It is readily-available state for the duration of application lifecycle.
+
+#### Long Term Memory
+
+Long-term memory is, obviously enough, intended for storage of information over a long period of time. The values are decoded and stored in localStorage for later retrieval.
 
 ### API
 
