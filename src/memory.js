@@ -1,12 +1,18 @@
+import crypt from './crypto';
+
 const __long__ = '__memory__';
 const storage = ['sensory', 'short', 'long'];
 
 class Memory {
-    constructor(memory) {
+    constructor(memory, options = {}) {
         const handler = this.handler();
+
         this.listeners = [];
         this.defaultLong = Object.assign({}, memory.long || {});
         this.defaultSensory = Object.assign({}, memory.sensory || {});
+        this.options = options;
+
+        // retrieve the memory from localStorage
         memory.long = this.snapshot('long') || memory.long;
         this.state = new Proxy(memory, handler);
     }
@@ -124,6 +130,7 @@ class Memory {
      */
     snapshot(type) {
         let state = this.state || {};
+        let secret = this.options.secret;
 
         switch (type) {
             case 'sensory':
@@ -134,7 +141,7 @@ class Memory {
                 break;
             case 'long':
                 const local = localStorage.getItem(__long__);
-                const long = local ? JSON.parse(local) : undefined;
+                const long = local ? crypt.decode(local, secret) : undefined;
                 state = state.__long || long;
                 break;
             default:
@@ -151,6 +158,8 @@ class Memory {
      * @returns {Object} proxy handlers
      */
     handler() {
+        let self = this;
+
         return {
             set(target, key, value, receivers) {
                 for (let i = 0; i < storage.length; i++) {
@@ -159,7 +168,8 @@ class Memory {
 
                         // if store is long storage then store in localStorage
                         if (storage[i] === 'long') {
-                            localStorage.setItem(__long__, JSON.stringify(target.long));
+                            let secret = self.options.secret;
+                            localStorage.setItem(__long__, crypt.encode(target.long, secret));
                         }
                     }
                 }

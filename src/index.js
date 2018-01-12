@@ -34,7 +34,7 @@ const createMemory = function({ sensory, short, long }, config = {}) {
             short,
             long,
         },
-        config.propTypes || {}
+        config
     );
 
     return memory;
