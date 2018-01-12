@@ -20,15 +20,13 @@ const HOC = (WrappedComponent, mapStateToProps, actions) => {
 
             for (let i in mapped) {
                 if (mapped[i] !== this.state[i]) {
-                    this.state = mapped;
-                    return this.forceUpdate();
+                    this.setState(mapped);
                 }
             }
 
             for (let i in this.state) {
                 if (mapped[i] !== this.state[i]) {
-                    this.state = mapped;
-                    return this.forceUpdate();
+                    this.setState(mapped);
                 }
             }
         }
