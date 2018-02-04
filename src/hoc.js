@@ -32,8 +32,8 @@ const HOC = (WrappedComponent, mapStateToProps, actions) => {
         }
         componentDidMount() {
             const component = `_${WrappedComponent.name.toLowerCase()}`;
-            this.memory.resetSensory(component); // the values reset to initial state
             this.update();
+            this.memory.resetSensory(component); // the values reset to initial state
             this.memory.subscribe(this.update.bind(this));
         }
         componentWillUnmount() {

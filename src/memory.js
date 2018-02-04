@@ -54,8 +54,8 @@ class Memory {
      * @public
      * @desc Reset the sensory memory
      */
-    resetSensory(component) {
-        const defaultSensory = this.defaultSensory[component] || {};
+    resetSensory(component, callback) {
+        const defaultSensory = Object.assign({}, this.defaultSensory[component] || {});
         const sensory = Object.assign(this.snapshot('sensory'), { [component]: defaultSensory });
         this.setState({ __sensory: sensory });
     }
@@ -81,7 +81,7 @@ class Memory {
         let setState = this.setState.bind(this);
         let values = this.state;
         return function() {
-            args = [values];
+            let args = [values];
             for (let i = 0; i < arguments.length; i++) {
                 args.push(arguments[i]);
             }
