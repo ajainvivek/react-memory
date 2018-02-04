@@ -38,7 +38,7 @@ import { createMemory, Provider, connect } from 'react-memory'
 const memory = createMemory({
   sensory: {
     _app: { // strictly referencing the underscore followed lowercase component name
-      _count: state._sensory._count + 1
+      _count: 0
     }
   },
   short: {
@@ -54,7 +54,7 @@ let actions = memory => ({
   // Actions can just return a state update:
   incrementSensory(state) {
     return {
-      _app: { _count: state._count + 1 }
+      _app: { _count: state._app._count + 1 }
     }
   },
 
