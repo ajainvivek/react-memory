@@ -37,7 +37,7 @@ import { createMemory, Provider, connect } from 'react-memory'
 
 const memory = createMemory({
   sensory: {
-    _app: { // strictly referencing the underscore followed lowercase component name
+    _app: { // strictly referencing the underscore followed by lowercase component name
       _count: 0
     }
   },
