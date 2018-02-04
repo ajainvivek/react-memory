@@ -9,7 +9,7 @@ class Memory {
 
         this.listeners = [];
         this.defaultLong = Object.assign({}, memory.long || {});
-        this.defaultSensory = Object.assign({}, memory.sensory || {});
+        this.defaultSensory = {};
         this.options = options;
 
         // retrieve the memory from localStorage
@@ -54,8 +54,9 @@ class Memory {
      * @public
      * @desc Reset the sensory memory
      */
-    resetSensory() {
-        this.setState(this.defaultSensory);
+    resetSensory(component) {
+        const sensory = Object.assign(this.snapshot('sensory'), { [component]: {} });
+        this.setState({ __sensory: sensory });
     }
 
     /**
