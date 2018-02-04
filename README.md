@@ -37,7 +37,9 @@ import { createMemory, Provider, connect } from 'react-memory'
 
 const memory = createMemory({
   sensory: {
-    _count: 0
+    _app: { // strictly referencing the underscore followed lowercase component name
+      _count: state._sensory._count + 1
+    }
   },
   short: {
     count: 0
@@ -51,7 +53,9 @@ const memory = createMemory({
 let actions = memory => ({
   // Actions can just return a state update:
   incrementSensory(state) {
-    return { _count: state._count + 1 }
+    return {
+      _app: { _count: state._count + 1 }
+    }
   },
 
   incrementShort({count}) {
@@ -66,10 +70,10 @@ let actions = memory => ({
   }
 })
 
-const App = connect(['_count', 'count', '$count'], actions)(
+const App = connect(['_app', 'count', '$count'], actions)(
   ({ _count, count, $count, incrementSensory, incrementShort, incrementLong }) => (
     <div>
-      <p>Sensory: {_count}</p>
+      <p>Sensory: {_app._count}</p>
       <p>Short: {count}</p>
       <p>Long: {$count}</p>
       <button onClick={incrementSensory}>Increment Sensory</button>
@@ -125,16 +129,16 @@ Creates a new memory with default initialized values for each memory category.
 
 ```javascript
 let memory = createMemory({
-     sensory: { _count: 0 },
+     sensory: { _card: {_count: 0} },
      short: { count: 0 },
      long: { $count: 0 }
   });
   memory.subscribe( state => console.log(state) );
-  memory.setState({ _count: 5, $count: 6 });
-  memory.getState(); Proxy Lookup Object { _count: 5, count: 0, $count: 6}
+  memory.setState({ _card: {_count: 5}, $count: 6 });
+  memory.getState(); Proxy Lookup Object { _card: {_count: 0}, count: 0, $count: 6}
   memory.snapshot('sensory'); { _count: 5 }
-  memory.resetSensory();
-  memory.snapshot('sensory'); { _count: 0 }
+  memory.resetSensory('_card');
+  memory.snapshot('sensory'); { _card: {_count: 0}
   memory.resetLong();
   memory.snapshot('long'); { $count: 0 }
 ```
@@ -159,7 +163,7 @@ Register a listener function so it can be called when state is changed
 
 #### resetSensory
 
-Reset the sensory memory
+Reset the sensory memory pass the component name eg. Card would be \_card
 
 #### resetLong
 
