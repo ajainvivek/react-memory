@@ -56,7 +56,6 @@ class Memory {
      */
     resetSensory(component, sensoryId, callback) {
         const defaultSensory = Object.assign({}, this.defaultSensory[component] || {});
-        const defaultInstances = this.snapshot('sensory').instances || {};
         const componentInstances = {
             [sensoryId]: defaultSensory,
         };
