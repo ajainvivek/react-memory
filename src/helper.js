@@ -29,4 +29,30 @@ const mapActions = function(actions, memory) {
     return mapped;
 };
 
-export { select, mapActions };
+/**
+ * @private
+ * @desc
+ * Generate unique id  - RFC4122 version 4 compliant
+ */
+const generateUniqueId = function() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        let r = (Math.random() * 16) | 0,
+            v = c == 'x' ? r : (r & 0x3) | 0x8;
+        return v.toString(16);
+    });
+};
+
+/**
+ * @private
+ * @desc
+ * Capitalize first letter
+ */
+function camelizeLetters(string) {
+    return string
+        .replace(/(?:^\w|[A-Z]|\b\w)/g, function(letter, index) {
+            return index == 0 ? letter.toLowerCase() : letter.toUpperCase();
+        })
+        .replace(/\s+/g, '');
+}
+
+export { select, mapActions, generateUniqueId, camelizeLetters };

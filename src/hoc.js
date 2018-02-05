@@ -1,5 +1,5 @@
 import React, { Component, createElement } from 'react';
-import { mapActions } from './helper';
+import { mapActions, generateUniqueId, camelizeLetters } from './helper';
 import PropTypes from 'prop-types';
 
 const HOC = (WrappedComponent, mapStateToProps, actions) => {
@@ -9,7 +9,9 @@ const HOC = (WrappedComponent, mapStateToProps, actions) => {
             this.memory = context.memory;
             this.state = mapStateToProps(this.memory ? this.memory.getState() : {});
             this.actions = actions ? mapActions(actions, this.memory) : this.memory;
+            this.sensoryId = Object.keys(this.state).filter(key => key.indexOf('_sensory') >= 0)[0];
         }
+
         /**
          * @private
          * @desc Compares the current component state with memory's current state,
@@ -31,17 +33,21 @@ const HOC = (WrappedComponent, mapStateToProps, actions) => {
             }
         }
         componentDidMount() {
-            const component = `_${WrappedComponent.name.toLowerCase()}`;
+            const component = `_${camelizeLetters(WrappedComponent.name)}`;
             this.update();
-            this.memory.resetSensory(component); // the values reset to initial state
+            this.memory.resetSensory(component, this.sensoryId); // the values reset to initial state
             this.memory.subscribe(this.update.bind(this));
         }
         componentWillUnmount() {
-            const component = `_${WrappedComponent.name.toLowerCase()}`;
-            this.memory.resetSensory(component); // the values reset to initial state
+            const component = `_${camelizeLetters(WrappedComponent.name)}`;
+            this.memory.removeSensoryInstance(this.sensoryId); // remove sensory instance
             this.memory.unsubscribe(this.update.bind(this));
         }
         render() {
+            if (!this.state[this.sensoryId]) {
+                const component = `_${camelizeLetters(WrappedComponent.name)}`;
+                this.state[this.sensoryId] = this.memory.snapshot('sensory')[component];
+            }
             const props = Object.assign(Object.assign(Object.assign({}, this.actions), this.props), this.state);
             return createElement(WrappedComponent, props);
         }

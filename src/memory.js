@@ -54,9 +54,24 @@ class Memory {
      * @public
      * @desc Reset the sensory memory
      */
-    resetSensory(component, callback) {
+    resetSensory(component, sensoryId, callback) {
         const defaultSensory = Object.assign({}, this.defaultSensory[component] || {});
-        const sensory = Object.assign(this.snapshot('sensory'), { [component]: defaultSensory });
+        const defaultInstances = this.snapshot('sensory').instances || {};
+        const componentInstances = {
+            [sensoryId]: defaultSensory,
+        };
+        const sensory = Object.assign(this.snapshot('sensory'), componentInstances);
+        this.setState({ __sensory: sensory });
+    }
+
+    /**
+     * @private
+     * @desc Remove sensory component instance
+     */
+    removeSensoryInstance(sensoryId) {
+        const instances = this.snapshot('sensory') || {};
+        delete instances[sensoryId];
+        const sensory = Object.assign(this.snapshot('sensory'), instances);
         this.setState({ __sensory: sensory });
     }
 

@@ -22,7 +22,7 @@
     "bundlesize": [
         {
             "path": "dist/memory.js",
-            "maxSize": "2000b"
+            "maxSize": "12500b"
         }
     ],
     "babel": {

@@ -35,6 +35,7 @@ You can find the library on `window.memory`.
 ```js
 import { createMemory, Provider, connect } from 'react-memory'
 
+// Set Default Values
 const memory = createMemory({
   sensory: {
     _app: { // strictly referencing the underscore followed by lowercase component name
@@ -54,7 +55,7 @@ let actions = memory => ({
   // Actions can just return a state update:
   incrementSensory(state) {
     return {
-      _app: { _count: state._app._count + 1 }
+      _sensory_unique_key: { _count: state._sensory_unique_key._count + 1 }
     }
   },
 
@@ -69,11 +70,11 @@ let actions = memory => ({
     });
   }
 })
-
-const App = connect(['_app', 'count', '$count'], actions)(
+// `_sensory${unique_value}` to map respective component
+const App = connect(['_sensory_unique_key', 'count', '$count'], actions)(
   ({ _count, count, $count, incrementSensory, incrementShort, incrementLong }) => (
     <div>
-      <p>Sensory: {_app._count}</p>
+      <p>Sensory: {_sensory_unique_key._count}</p>
       <p>Short: {count}</p>
       <p>Long: {$count}</p>
       <button onClick={incrementSensory}>Increment Sensory</button>
@@ -98,7 +99,7 @@ Mimicking the human memory model onto to the centralized store to process and re
 
 #### Sensory Memory
 
-Sensory memory is the shortest-term element of memory. It has the ability to retain data only for the duration of component lifecycle. On component unmount the value resets to its initial state.
+Sensory memory is the shortest-term element of memory. It has the ability to retain data only for the duration of component lifecycle. On component unmount the value resets to its initial state. The sensory value is tightly coupled with component by referencing dynamic key `_sensory` followed by unique name;
 
 #### Short Term (Working) Memory
 
@@ -129,16 +130,16 @@ Creates a new memory with default initialized values for each memory category.
 
 ```javascript
 let memory = createMemory({
-     sensory: { _card: {_count: 0} },
+     sensory: { _viewname: {_count: 0} },
      short: { count: 0 },
      long: { $count: 0 }
   });
   memory.subscribe( state => console.log(state) );
-  memory.setState({ _card: {_count: 5}, $count: 6 });
-  memory.getState(); Proxy Lookup Object { _card: {_count: 0}, count: 0, $count: 6}
+  memory.setState({ _sensory_unique_key: {_count: 5}, $count: 6 });
+  memory.getState(); Proxy Lookup Object { _sensory_unique_key: {_count: 0}, count: 0, $count: 6}
   memory.snapshot('sensory'); { _count: 5 }
-  memory.resetSensory('_card');
-  memory.snapshot('sensory'); { _card: {_count: 0}
+  memory.resetSensory('_sensory_unique_key');
+  memory.snapshot('sensory'); { _sensory_unique_key: {_count: 0}
   memory.resetLong();
   memory.snapshot('long'); { $count: 0 }
 ```
